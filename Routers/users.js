@@ -6,7 +6,7 @@ router.get('/',(req,res)=>{
 })
 
 //Register user
-router.post('/',(req,res)=>{
+router.post('/signup',(req,res)=>{
        const newUser = new User({
         name : req.body.name,
         password : req.body.password,
