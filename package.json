@@ -1,0 +1,26 @@
+{
+  "name": "twitter_server",
+  "version": "1.0.0",
+  "description": "Backend service for twitter_clone application",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server" : "nodemon ./app.js" 
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/avinashnadkar/twitter_server.git"
+  },
+  "author": "Avinash Nadkar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/avinashnadkar/twitter_server/issues"
+  },
+  "homepage": "https://github.com/avinashnadkar/twitter_server#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "mongoose": "^6.0.8",
+    "nodemon": "^2.0.13"
+  }
+}
