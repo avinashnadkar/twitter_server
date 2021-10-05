@@ -4,14 +4,14 @@ const bcrypt = require('bcrypt');
 const JWT = require('jsonwebtoken')
 let User = require('../Models/userModel');
 
-router.get('/',(req,res)=>{
+router.get('/', (req, res) => {
     res.send('server is running')
 })
 
 //Register user
-router.post('/signup', async (req,res)=>{
-       
-       //validate email and phone
+router.post('/signup', async (req, res) => {
+
+    //validate email and phone
     //    let findUser =  User.findone({email: req.body.email}).then(u=>{
     //        if(u){
     //           return res.status(400).json({
@@ -21,34 +21,84 @@ router.post('/signup', async (req,res)=>{
     //    })
 
 
-       //hash password before post
-       let hashedPasswrod = await bcrypt.hash(req.body.password,10);
+    //hash password before post
+    let hashedPasswrod = await bcrypt.hash(req.body.password, 10);
 
-       const newUser = new User({
-        name : req.body.name,
-        password : hashedPasswrod,
-        phone : req.body.phone,
-        email : req.body.email,
-        birthDate : req.body.birthDate
-   })
-       
-   //Create new JWT token (throwing error at this time need to be resolved)
-   let name =  req.body.name
-   const token = await JWT.sign({
-       name
-   }, process.env.KEY,{
-       expiresIn : 72000000
-   })
+    const newUser = new User({
+        name: req.body.name,
+        password: hashedPasswrod,
+        phone: req.body.phone,
+        email: req.body.email,
+        birthDate: req.body.birthDate
+    })
 
-   //post data in database
+    //Create new JWT token (throwing error at this time need to be resolved)
+    let name = req.body.name
+    const token = await JWT.sign({
+        name
+    }, process.env.KEY, {
+        expiresIn: 72000000
+    })
+
+    //post data in database
     newUser.save()
-    .then(()=>{
-        res.json({
-            token : token
+        .then(() => {
+            res.json({
+                token: token
+            })
+        }).catch((err) => {
+            res.status(400).json("error :" + err)
         })
-    }).catch((err)=>{
-        res.status(400).json("error :" + err)
+})
+
+//Login user
+router.post('/login', async (req,res) => {
+    const {email,password} = req.body;
+
+    let user = await User.findOne({email: email});
+    if (!user) return res.status(400).send('Invalid Email or Password.')
+
+    // let user = User.find(user=>{
+    //     return user.email === email
+    // })
+
+    // if(!user){
+    //     return res.status(400).json({
+    //         "errors" : [{"msg" : "invalid credentials"}]
+    //     })
+    // }
+
+    let isMatch = await bcrypt.compare(password,user.password)
+    
+    if(!isMatch){
+        return res.status(400).json({
+            "errors" : [{"msg" : "invalid credentials"}]
+        })
+    }
+
+    //Create new JWT token 
+    let name = email
+    const token = JWT.sign({
+        name
+    }, process.env.KEY, {
+        expiresIn: 72000000
+    })
+ 
+    res.json({
+        token : token
     })
 })
+
+
+//Get all users
+router.get('/all',(req,res)=>{
+    User.find()
+    .then(users => {
+        res.json(users)
+    }).catch(err => {
+        res.status(400).json('Error :' + err)
+    })
+})
+
 
 module.exports = router;
