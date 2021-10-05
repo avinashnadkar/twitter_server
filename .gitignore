@@ -5,6 +5,9 @@
 #env variable
 .env
 
+#network request file
+user.rest
+
 # testing
 /coverage
 
