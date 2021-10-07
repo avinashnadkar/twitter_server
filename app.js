@@ -5,6 +5,7 @@ const cors = require("cors")
 const app = express();
 const port = process.env.PORT || 2345;
 const usersRouter = require('./Routers/users')
+const tweetsRouter = require('./Routers/tweets')
 
 //middlewares
 app.use(express.json());
@@ -23,6 +24,8 @@ db.once('open', () => console.log('connected to db'))
 
 //Route req to users Router
 app.use('/users',usersRouter)
+//Route req to users Router
+app.use('/tweets',tweetsRouter)
 
 app.listen(port, (err)=>{
    if(err){
