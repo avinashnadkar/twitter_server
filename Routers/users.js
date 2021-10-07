@@ -44,8 +44,14 @@ router.post('/signup', async (req, res) => {
     newUser.save()
         .then(() => {
             res.json({
-                token: token
-            })
+                status: "success",
+                code: 200,
+                message: "Welcome to Twitter.",
+                results :{
+                    token: token,
+                    name : name
+                }
+            })  
         }).catch((err) => {
             res.status(400).json("error :" + err)
         })
@@ -85,7 +91,21 @@ router.post('/login', async (req,res) => {
     })
  
     res.json({
-        token : token
+        status: "success",
+        code: 200,
+        message: "Welcome to Twitter.",
+        results :{
+            token: token,
+            u_id : user._id,
+            name : user.name,
+            status : user.status,
+            avtar : user.profilePic,
+            coverPhoto : user.coverPhoto,
+            about : user.about,
+            following : user.following,
+            followers : user.followers,
+            birthDate : user.birthDate
+        }
     })
 })
 

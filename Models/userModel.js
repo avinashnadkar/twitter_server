@@ -29,10 +29,6 @@ const userSchema = mongoose.Schema({
     userInfo : {  
         type : String,
     },
-    tweets :{
-        type : Array,
-        default : [] 
-    },
     following : {
         type : Array,
         default : [] 
@@ -43,6 +39,10 @@ const userSchema = mongoose.Schema({
     },
     birthDate:{
         type : String,
+    },
+    status : {
+        type : String,
+        default : "active"
     },
     date : {
         type : Date,
