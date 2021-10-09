@@ -20,12 +20,14 @@ The auther have created two diffrent repositories for front-end and back-end. Th
       Method : POST
       
       Headers : 
+      
               {
                   'Accept': 'application/json',
                   'Content-Type': 'application/json'   
                }
                
       Body :   
+      
                {      
                   "name" : "Username",                  
                   "password" : "type-long-password",              
