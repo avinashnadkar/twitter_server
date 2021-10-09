@@ -21,7 +21,7 @@ The auther have created two diffrent repositories for front-end and back-end. Th
       
       Headers : 
       
-              {
+               {
                   'Accept': 'application/json',
                   'Content-Type': 'application/json'   
                }
@@ -34,6 +34,6 @@ The auther have created two diffrent repositories for front-end and back-end. Th
                   "email" : "username@gmail.com",                  
                   "phone" : "",                  
                   "birthDate" : "19/12/2021"                  
-              }
+               }
 
 
