@@ -22,11 +22,8 @@ The auther have created two diffrent repositories for front-end and back-end. Th
       Headers : 
               
               {
-      
                   'Accept': 'application/json',
-                  
                   'Content-Type': 'application/json'   
-                  
                }
                
       Body :   
