@@ -20,29 +20,20 @@ The auther have created two diffrent repositories for front-end and back-end. Th
       Method : POST
       
       Headers : 
-              
-              {
       
+               {
                   'Accept': 'application/json',
-                  
                   'Content-Type': 'application/json'   
-                  
                }
                
       Body :   
-               
-               {
       
-                  "name" : "Username",
-                  
-                  "password" : "type-long-password",
-                  
-                  "email" : "username@gmail.com",
-                  
-                  "phone" : "",
-                  
-                  "birthDate" : "19/12/2021"
-                  
-              }
+               {      
+                  "name" : "Username",                  
+                  "password" : "type-long-password",              
+                  "email" : "username@gmail.com",                  
+                  "phone" : "",                  
+                  "birthDate" : "19/12/2021"                  
+               }
 
 
