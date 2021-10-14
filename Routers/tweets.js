@@ -22,5 +22,15 @@ router.post('/tweet', checkAuth, (req, res) => {
         })
 })
 
+//Get all tweets
+router.get('/tweets', checkAuth, (req,res) => {
+    Tweet.find()
+    .then(users => {
+        res.json(users)
+    }).catch(err => {
+        res.status(400).json('Error :' + err)
+    })
+})
+
 
 module.exports = router;
