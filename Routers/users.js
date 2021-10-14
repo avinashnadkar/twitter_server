@@ -3,6 +3,7 @@ require('dotenv').config()
 const bcrypt = require('bcrypt');
 const JWT = require('jsonwebtoken')
 let User = require('../Models/userModel');
+const checkAuth = require('../Middlewares/checkAuth.js')
 
 router.get('/', (req, res) => {
     res.send('server is running')
@@ -97,21 +98,13 @@ router.post('/login', async (req,res) => {
         results :{
             token: token,
             u_id : user._id,
-            name : user.name,
-            status : user.status,
-            avtar : user.profilePic,
-            coverPhoto : user.coverPhoto,
-            about : user.about,
-            following : user.following,
-            followers : user.followers,
-            birthDate : user.birthDate
         }
     })
 })
 
 
 //Get all users
-router.get('/all',(req,res)=>{
+router.get('/all', checkAuth ,(req,res)=>{
     User.find()
     .then(users => {
         res.json(users)
