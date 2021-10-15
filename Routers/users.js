@@ -120,7 +120,19 @@ router.get('/:id',checkAuth,(req,res)=>{
     User.findById(id)
     .then(user=>{
         if(user != null){
-            res.json(user)
+            res.json({
+                avtar : user.profilePic,
+                coverPhoto : user.coverPhoto,
+                name : user.name,
+                username : user.username,
+                about  : user.about,
+                phone : user.phone,
+                email : user.email,
+                following : user.following,
+                followers : user.followers,
+                status : user.status,
+                birthDate : user.birthDate
+            })
         }else{
             res.status(400).json({
                 "errors" : [{"msg" : "invalid user id"}]
