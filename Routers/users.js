@@ -3,7 +3,8 @@ require('dotenv').config()
 const bcrypt = require('bcrypt');
 const JWT = require('jsonwebtoken')
 let User = require('../Models/userModel');
-const checkAuth = require('../Middlewares/checkAuth.js')
+const checkAuth = require('../Middlewares/checkAuth.js');
+const { findById } = require('../Models/userModel');
 
 router.get('/', (req, res) => {
     res.send('server is running')
@@ -110,6 +111,23 @@ router.get('/all', checkAuth ,(req,res)=>{
         res.json(users)
     }).catch(err => {
         res.status(400).json('Error :' + err)
+    })
+})
+
+//Get user info
+router.get('/:id',checkAuth,(req,res)=>{
+    let id = req.params.id;
+    User.findById(id)
+    .then(user=>{
+        if(user != null){
+            res.json(user)
+        }else{
+            res.status(400).json({
+                "errors" : [{"msg" : "invalid user id"}]
+            })
+        }
+    }).catch(err=>{
+        res.status(400).json('Error:' + err)
     })
 })
 
