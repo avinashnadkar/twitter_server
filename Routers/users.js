@@ -101,7 +101,7 @@ router.post('/login', async (req, res) => {
             u_id: user._id,
             name: user.name,
             username: user.username,
-            avtar : user.profilePic,
+            avtar: user.profilePic,
         }
     })
 })
@@ -145,6 +145,49 @@ router.get('/:id', checkAuth, (req, res) => {
             res.status(400).json('Error:' + err)
         })
 })
+
+//Follow A user
+router.post('/follow/:id', checkAuth, (req, res) => {
+
+    let followPersonId = req.params.id
+    let followerId = req.body.u_id
+    let followrName = req.body.name
+    let followrUserName = req.body.username
+
+    //First push followers name in persons followers array
+    User.findByIdAndUpdate(followPersonId, {
+        $push: {
+            followers:
+            {
+                user : followerId,
+                name : followrName,
+                userName : followrUserName
+            }
+        }
+    }).then(user => {
+        //Second push in folllowing persons name in users following array
+        User.findByIdAndUpdate(followerId, {
+            $push: {
+                following:
+                {
+                    user : followPersonId,
+                    name : user.name,
+                    userName : req.body.username
+                }
+            }
+        }).then(result=>{
+            res.status(400).json({
+                "msg": "Successfully followed" + " " + user.name
+            })
+        })
+            
+        }).catch(err => {
+            res.status(500).json(err)
+        })
+
+    // res.json(req.params.id)
+})
+
 
 
 module.exports = router;

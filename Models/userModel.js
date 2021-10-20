@@ -1,52 +1,79 @@
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
 const userSchema = mongoose.Schema({
-    profilePic : {
-        type : String
+    profilePic: {
+        type: String
     },
-    coverPhoto : {
-        type : String
+    coverPhoto: {
+        type: String
     },
-    name:{
-        type : String,
-        required :true
+    name: {
+        type: String,
+        required: true
     },
-    username:{
-        type : String,
+    username: {
+        type: String,
     },
-    password:{
-        type : String
+    password: {
+        type: String,
+        required: true
     },
-    phone:{
-        type : String
+    phone: {
+        type: String
     },
-    email:{
-        type:String
+    email: {
+        type: String
     },
-    about : {
-        type : String,
+    about: {
+        type: String,
     },
-    userInfo : {  
-        type : String,
+    userInfo: {
+        type: String,
     },
-    following : {
-        type : Array,
-        default : [] 
+    followers: [
+        {
+            user: {
+                type: Schema.ObjectId,
+                ref: 'User'
+            },
+            name: {
+                type: String
+            },
+            username : {
+                type: String
+            },
+            
+            _id : false 
+            
+        }
+    ],
+    following: [
+        {
+            user: {
+                type: Schema.ObjectId,
+                ref: 'User'
+            },
+            name: {
+                type: String
+            },
+            username : {
+                type: String
+            },
+            _id : false 
+            
+        }
+    ],
+    birthDate: {
+        type: String,
     },
-    followers : {
-        type : Array,
-        default : [] 
+    status: {
+        type: String,
+        default: "active"
     },
-    birthDate:{
-        type : String,
-    },
-    status : {
-        type : String,
-        default : "active"
-    },
-    date : {
-        type : Date,
-        default : Date.now
+    date: {
+        type: Date,
+        default: Date.now
     }
 })
 
