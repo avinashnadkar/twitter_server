@@ -1,11 +1,11 @@
 const express = require('express');
-require('dotenv').config()
-const mongoose = require("mongoose")
-const cors = require("cors")
+require('dotenv').config();
+const mongoose = require("mongoose");
+const cors = require("cors");
 const app = express();
 const port = process.env.PORT || 2345;
-const usersRouter = require('./Routers/users')
-const tweetsRouter = require('./Routers/tweets')
+const usersRouter = require('./Routers/users');
+const tweetsRouter = require('./Routers/tweets');
 
 //middlewares
 app.use(express.json());
