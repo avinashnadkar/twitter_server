@@ -25,13 +25,33 @@ router.post('/signup', async (req, res) => {
 
     //hash password before post
     let hashedPasswrod = await bcrypt.hash(req.body.password, 10);
+   
+    //create default username
+    let userName = "@";
+    let spaceIncluded = false;
+    for(let i=0;i<req.body.name.length;i++){
+        if(req.body.name[i] == " "){
+            spaceIncluded = true
+            break;
+        }
+    }
+    if(spaceIncluded){
+        let arr = req.body.name.split(" ");
+        for(let j=0;j<arr.length;j++){
+             userName += arr[j];
+        }
+    }else{
+        userName += req.body.name
+    }
+
 
     const newUser = new User({
         name: req.body.name,
         password: hashedPasswrod,
         phone: req.body.phone,
         email: req.body.email,
-        birthDate: req.body.birthDate
+        birthDate: req.body.birthDate,
+        username : userName
     })
 
     //Create new JWT token (throwing error at this time need to be resolved)
@@ -44,14 +64,17 @@ router.post('/signup', async (req, res) => {
 
     //post data in database
     newUser.save()
-        .then(() => {
+        .then((user) => {
             res.json({
                 status: "success",
                 code: 200,
                 message: "Welcome to Twitter.",
                 results: {
                     token: token,
-                    name: name
+                    u_id: user._id,
+                    name: user.name,
+                    username: user.username,
+                    avtar: user.profilePic
                 }
             })
         }).catch((err) => {
