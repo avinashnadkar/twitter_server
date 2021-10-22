@@ -40,6 +40,27 @@ router.post('/tweet', checkAuth, (req, res) => {
     
 })
 
+//Like the tweet
+router.post('/like', checkAuth , (req,res)=>{
+    let tweetId = req.body.tweet_id;
+    let userId = req.body.u_id;
+
+    Tweet.findByIdAndUpdate(tweetId, {
+        $push: {
+            likes:
+            {
+                user : userId 
+            }
+        }
+    }).then(result=>{
+        res.status(400).json({
+            "msg" : "You liked this tweet",
+        })
+    }).catch(err=>{
+        res.json(err)
+    })
+})
+
 //Get all tweets
 router.get('/tweets', checkAuth, (req,res) => {
     Tweet.find()
