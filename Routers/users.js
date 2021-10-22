@@ -5,6 +5,7 @@ const JWT = require('jsonwebtoken')
 let User = require('../Models/userModel');
 const checkAuth = require('../Middlewares/checkAuth.js');
 const { findById } = require('../Models/userModel');
+const { isValidObjectId } = require('mongoose');
 
 router.get('/', (req, res) => {
     res.send('server is running')
@@ -208,6 +209,34 @@ router.post('/follow/:id', checkAuth, (req, res) => {
             res.status(500).json(err)
         })
 
+    // res.json(req.params.id)
+})
+
+
+//UnFollow A user
+router.post('/unfollow/:id', checkAuth, (req, res) => {
+
+    let followPersonId = req.params.id
+    let followerId = req.body.u_id
+
+    //First find the user and then followers object from followers array
+       //First push followers name in persons followers array
+    User.find({ '_id': followPersonId }).updateOne(
+        { $pull: { followers: { user:  followerId}}}
+    ).then(result=>{
+        User.find({ '_id': followerId }).updateOne(
+            { $pull: { following: { user:  followPersonId}}}
+        ).then(result=>{
+            res.status(400).json({
+                "msg" : "successfully unfollowed"
+            })
+        });
+    }).catch(err=>{
+        res.json(err)
+    })
+      
+    
+        
     // res.json(req.params.id)
 })
 
