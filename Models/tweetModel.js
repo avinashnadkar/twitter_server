@@ -6,7 +6,13 @@ const tweetSchema = mongoose.Schema({
         type: Schema.ObjectId, 
         ref: 'User'
     },
+    avatar : {
+        type : String
+    },
     name:{
+        type : String
+    },
+    username:{
         type : String
     },
     tweet : {
@@ -15,6 +21,23 @@ const tweetSchema = mongoose.Schema({
     whoCanReply : {
         type : String
     },
+    likes : [
+        {
+            user:{ 
+                type: Schema.ObjectId, 
+                ref: 'User' 
+            },
+            avatar : {
+                type : String
+            },
+            name:{
+                type : String
+            },
+            username:{
+                type : String
+            }
+        }
+    ],
     reply : [
         {
             user:{ 
@@ -22,6 +45,15 @@ const tweetSchema = mongoose.Schema({
                 ref: 'User' 
             },
             comment : {
+                type : String
+            },
+            avatar : {
+                type : String
+            },
+            name:{
+                type : String
+            },
+            username:{
                 type : String
             }
         }
