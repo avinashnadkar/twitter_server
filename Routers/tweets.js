@@ -102,7 +102,7 @@ router.post('/reply', checkAuth, (req, res) => {
             }
         }).then(result => {
             res.status(400).json({
-                "msg": "Reply successfully tweet",
+                "msg": "Reply successfully added",
             })
         }).catch(err => {
             res.json(err)
