@@ -35,7 +35,8 @@ const tweetSchema = mongoose.Schema({
             },
             username:{
                 type : String
-            }
+            },
+            _id : false 
         }
     ],
     reply : [
@@ -55,7 +56,8 @@ const tweetSchema = mongoose.Schema({
             },
             username:{
                 type : String
-            }
+            },
+            _id : false 
         }
     ],
     date : {
