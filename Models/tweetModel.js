@@ -36,6 +36,10 @@ const tweetSchema = mongoose.Schema({
             username:{
                 type : String
             },
+            date: {
+                type: Date,
+                default: Date.now
+            },
             _id : false 
         }
     ],
@@ -56,6 +60,10 @@ const tweetSchema = mongoose.Schema({
             },
             username:{
                 type : String
+            },
+            date: {
+                type: Date,
+                default: Date.now
             },
             _id : false 
         }
