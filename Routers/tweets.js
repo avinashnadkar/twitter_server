@@ -3,7 +3,7 @@ let Tweet = require('../Models/tweetModel');
 let User = require('../Models/userModel');
 const checkAuth = require('../Middlewares/checkAuth')
 
-
+//Add tweet
 router.post('/tweet', checkAuth, (req, res) => {
 
     let name;
@@ -112,6 +112,17 @@ router.post('/reply', checkAuth, (req, res) => {
     })
 
 
+})
+
+//Get single user tweet
+router.get('/tweet/:u_id',checkAuth,(req,res)=>{
+    let userId = req.params.u_id;
+
+    Tweet.find({u_id : userId }).then(result=>{
+        res.status(400).json(result)
+    }).catch(err=>{
+        res.status(400).json({"Error":err})
+    })
 })
 
 //Get all tweets
