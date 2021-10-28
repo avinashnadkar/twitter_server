@@ -26,7 +26,7 @@ router.post('/tweet', checkAuth, (req, res) => {
         //post tweet in database
         newTweet.save()
             .then(() => {
-                res.json({
+                res.status(200).json({
                     msg: "Tweet succsessfully added"
                 })
             }).catch((err) => {
@@ -53,32 +53,11 @@ router.post('/like', checkAuth, (req, res) => {
             }
         }
     }).then(result => {
-        res.status(400).json({
+        res.status(200).json({
             "msg": "You liked this tweet",
         })
     }).catch(err => {
-        res.json(err)
-    })
-})
-
-//Like the tweet
-router.post('/like', checkAuth, (req, res) => {
-    let tweetId = req.body.tweet_id;
-    let userId = req.body.u_id;
-
-    Tweet.findByIdAndUpdate(tweetId, {
-        $push: {
-            likes:
-            {
-                user: userId
-            }
-        }
-    }).then(result => {
-        res.status(400).json({
-            "msg": "You liked this tweet",
-        })
-    }).catch(err => {
-        res.json(err)
+        res.status(400).json(err)
     })
 })
 
@@ -101,14 +80,14 @@ router.post('/reply', checkAuth, (req, res) => {
                 }
             }
         }).then(result => {
-            res.status(400).json({
+            res.status(200).json({
                 "msg": "Reply successfully added",
             })
         }).catch(err => {
-            res.json(err)
+            res.status(400).json(err)
         })
     }).catch(err => {
-        res.json(err)
+        res.status(400).json(err)
     })
 
 
@@ -119,7 +98,7 @@ router.get('/tweet/:u_id',checkAuth,(req,res)=>{
     let userId = req.params.u_id;
 
     Tweet.find({u_id : userId }).then(result=>{
-        res.status(400).json(result)
+        res.status(200).json(result)
     }).catch(err=>{
         res.status(400).json({"Error":err})
     })
@@ -129,7 +108,7 @@ router.get('/tweet/:u_id',checkAuth,(req,res)=>{
 router.get('/tweets', checkAuth, (req, res) => {
     Tweet.find()
         .then(tweet => {
-            res.json(tweet)
+            res.status(200).json(tweet)
         }).catch(err => {
             res.status(400).json('Error :' + err)
         })
