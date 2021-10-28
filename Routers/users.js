@@ -135,7 +135,7 @@ router.post('/login', async (req, res) => {
 router.get('/all', checkAuth, (req, res) => {
     User.find()
         .then(users => {
-            res.json(users)
+            res.status(200).json(users)
         }).catch(err => {
             res.status(400).json('Error :' + err)
         })
@@ -147,7 +147,7 @@ router.get('/:id', checkAuth, (req, res) => {
     User.findById(id)
         .then(user => {
             if (user != null) {
-                res.json({
+                res.status(200).json({
                     avtar: user.profilePic,
                     coverPhoto: user.coverPhoto,
                     name: user.name,
@@ -200,13 +200,13 @@ router.post('/follow/:id', checkAuth, (req, res) => {
                 }
             }
         }).then(result=>{
-            res.status(400).json({
+            res.status(200).json({
                 "msg": "Successfully followed" + " " + user.name
             })
         })
             
         }).catch(err => {
-            res.status(500).json(err)
+            res.status(400).json(err)
         })
 
     // res.json(req.params.id)
@@ -227,12 +227,12 @@ router.post('/unfollow/:id', checkAuth, (req, res) => {
         User.find({ '_id': followerId }).updateOne(
             { $pull: { following: { user:  followPersonId}}}
         ).then(result=>{
-            res.status(400).json({
+            res.status(200).json({
                 "msg" : "successfully unfollowed"
             })
         });
     }).catch(err=>{
-        res.json(err)
+        res.status(400).json(err)
     })
       
     
