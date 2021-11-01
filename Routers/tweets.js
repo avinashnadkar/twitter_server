@@ -93,11 +93,22 @@ router.post('/reply', checkAuth, (req, res) => {
 
 })
 
-//Get single user tweet
-router.get('/tweet/:u_id',checkAuth,(req,res)=>{
+//Get single user tweets
+router.get('/usertweets/:u_id',checkAuth,(req,res)=>{
     let userId = req.params.u_id;
 
     Tweet.find({u_id : userId }).then(result=>{
+        res.status(200).json(result)
+    }).catch(err=>{
+        res.status(400).json({"Error":err})
+    })
+})
+
+//Get a single tweet
+router.get('/tweet/:tweet_id',checkAuth,(req,res)=>{
+    let tweetID = req.params.tweet_id;
+
+    Tweet.findById(tweetID).then(result=>{
         res.status(200).json(result)
     }).catch(err=>{
         res.status(400).json({"Error":err})
