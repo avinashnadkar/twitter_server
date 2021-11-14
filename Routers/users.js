@@ -75,7 +75,7 @@ router.post('/signup', async (req, res) => {
                     u_id: user._id,
                     name: user.name,
                     username: user.username,
-                    avtar: user.profilePic
+                    avatar: user.avatar
                 }
             })
         }).catch((err) => {
@@ -125,7 +125,7 @@ router.post('/login', async (req, res) => {
             u_id: user._id,
             name: user.name,
             username: user.username,
-            avtar: user.profilePic,
+            avatar: user.avatar,
         }
     })
 })
@@ -148,7 +148,7 @@ router.get('/:id', checkAuth, (req, res) => {
         .then(user => {
             if (user != null) {
                 res.status(200).json({
-                    avtar: user.profilePic,
+                    avatar: user.avatar,
                     coverPhoto: user.coverPhoto,
                     name: user.name,
                     username: user.username,

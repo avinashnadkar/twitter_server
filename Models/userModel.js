@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const userSchema = mongoose.Schema({
-    profilePic: {
+    avatar: {
         type: String
     },
     coverPhoto: {
@@ -40,12 +40,12 @@ const userSchema = mongoose.Schema({
             name: {
                 type: String
             },
-            username : {
+            username: {
                 type: String
             },
-            
-            _id : false 
-            
+
+            _id: false
+
         }
     ],
     following: [
@@ -57,11 +57,11 @@ const userSchema = mongoose.Schema({
             name: {
                 type: String
             },
-            username : {
+            username: {
                 type: String
             },
-            _id : false 
-            
+            _id: false
+
         }
     ],
     birthDate: {
