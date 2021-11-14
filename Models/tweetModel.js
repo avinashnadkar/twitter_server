@@ -6,9 +6,6 @@ const tweetSchema = mongoose.Schema({
         type: Schema.ObjectId, 
         ref: 'User'
     },
-    avatar : {
-        type : String
-    },
     name:{
         type : String
     },
@@ -16,6 +13,9 @@ const tweetSchema = mongoose.Schema({
         type : String
     },
     tweet : {
+        type : String
+    },
+    media : {
         type : String
     },
     whoCanReply : {
