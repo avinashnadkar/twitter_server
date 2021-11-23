@@ -80,11 +80,16 @@ router.post('/reply', checkAuth, (req, res) => {
                 }
             }
         }).then(result => {
-            res.status(200).json({
-                "msg": "Reply successfully added",
-            })
-        }).catch(err => {
-            res.status(400).json(err)
+            if(result == null){
+                res.status(400).json({
+                   "msg": "something is wrong"
+                 })  
+            }else{
+                res.status(200).json({
+                    "msg": "Reply successfully added"
+                }) 
+            }
+           
         })
     }).catch(err => {
         res.status(400).json(err)
